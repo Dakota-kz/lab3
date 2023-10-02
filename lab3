@@ -1,0 +1,132 @@
+# Task 1
+word = input()
+spell = word.replace(" ", "")
+print(spell)
+
+# Task 2
+spell = ('T', 'h', 'e', 'B', 'i', 'g', 'B', 'e', 'n')
+word = ''.join(spell)
+print(word)
+
+# Task 3
+tuple_A = (1, 2, 3, 4, 5, 6, 7)
+tuple_B = (5, 6, 7, 9, 7, 1, 10, 10)
+midle_num = len(tuple_A) // 2
+solution = tuple_A[:midle_num] + tuple_B[midle_num:]
+print(solution)
+
+# Task 4
+def count_occurrences(input_tuple):
+    occurrences_dict = {}
+    for item in input_tuple:
+        if isinstance(item, list):
+            key = tuple(item)
+        else:
+            key = item
+        if key in occurrences_dict:
+            occurrences_dict[key] += 1
+        else:
+            occurrences_dict[key] = 1
+    result_tuple = tuple((key, occurrences_dict[key]) for key in occurrences_dict)
+    return result_tuple
+
+data_samples = [
+    (55, 6, 777, 54, 6, 76, 7777, 1, 777, 6),
+    ('55', '6', '777', 54, 6, 7777, 9, 777, 6),
+    ((1, 2, 3), (['A', 'B']), (1, 2, 3), (['A']))
+]
+
+for sample_data in data_samples:
+    result_data = count_occurrences(sample_data)
+    print(result_data)
+
+# Task 5
+def classify_data(input_data):
+    integer_data = tuple(x for x in input_data if isinstance(x, int))
+    floating_data = tuple(x for x in input_data if isinstance(x, float))
+    string_data = tuple(x for x in input_data if isinstance(x, str))
+    return integer_data, floating_data, string_data
+
+example_data = (55, 6, 777, 70.0, '7', 'A')
+int_results, float_results, str_results = classify_data(example_data)
+print(int_results)
+print(float_results)
+print(str_results)
+
+# Task 6
+custom_input = input()
+unique_characters = {char for char in custom_input}
+print(unique_characters)
+
+# Task 7
+set_A = {1, 2, 3, 4, 5}
+set_B = {5, 7, 8, 9, 2, 10}
+difference_result = set_A.symmetric_difference(set_B)
+print(difference_result)
+
+# Task 8
+set_A = {1, 2, 3, 4, 5}
+set_B = {5, 7, 8, 9, 2, 10}
+set_A.difference_update(set_B)
+print(set_A)
+
+# Task 9
+set_A = {1, 2, 3, 4, 7}
+set_B = {8, 7, 9, 4, 2, 0, 10}
+set_C = {4, 0, 1}
+for item in set_C:
+    if item in set_A:
+        set_A.remove(item)
+        set_B.add(item)
+print(set_A)
+print(set_B)
+
+# Task 10
+from itertools import combinations
+
+set_A = {1, 2, 3, 4, 5, 6}
+required_count = 3
+selected_count = 5
+
+combinations_set = list(combinations(set_A, required_count))
+selected_combinations = combinations_set[:selected_count]
+result_list = [set(comb) for comb in selected_combinations]
+
+print(result_list)
+
+# Task 11
+from itertools import groupby
+
+vehicles_list = [('BMW', 'X6'), ('Toyota', 'Yaris'),
+                 ('Fiat', '500'), ('Fiat', 'Panda'), ('Toyota', 'Camry 30')]
+vehicles_list.sort(key=lambda x: x[0])
+for key, group in groupby(vehicles_list, key=lambda x: x[0]):
+    print(f"{key} {len(list(group))}")
+    for vehicle in group:
+        print(f"- {vehicle[1]}")
+
+# Task 12
+data_values = (5, 55, 10, 1, 0, 1, 55, 77, 10, 5, 5, 55, 77)
+from collections import Counter
+counter_data = Counter(data_values)
+items_data = list(counter_data.items())
+max_occurrence_data = max(counter_data.values())
+min_occurrence_data = min(counter_data.values())
+most_popular_data = [item for item in items_data if item[1] == max_occurrence_data]
+least_popular_data = [item for item in items_data if item[1] == min_occurrence_data]
+frequent_occurrences_data = Counter(counter_data.values())
+frequent_values_data = [value for value, count in frequent_occurrences_data.items() if count > 1]
+frequent_elements_data = [item for item in items_data if item[1] in frequent_values_data]
+print(tuple(items_data))
+print("The most popular element:", end=" ")
+if len(most_popular_data) > 1:
+    print("no most popular element")
+else:
+    print(most_popular_data[0])
+print("The least popular element:", end=" ")
+if len(least_popular_data) > 1:
+    print("no least popular element")
+else:
+    print(least_popular_data[0])
+print("The frequent elements:", end=" ")
+print(tuple(frequent_elements_data))
